@@ -103,7 +103,7 @@ class EnvironmentController extends Controller
             /* migrate and seed the data */
             $response = $this->DatabaseManager->migrateAndSeed();
 
-            return app('redirect')->route('LaravelInstaller::register')->with('message', $response);
+            return redirect()->route('LaravelInstaller::register')->with('message', $response);
         } catch (Exception $exception) {
             Log::error($exception);
             return $exception->getMessage();
