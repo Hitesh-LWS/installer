@@ -22,8 +22,8 @@ class LicenseAgreement extends Controller
     public function licenseAgreement(Request $request)
     {
         try {
-            $errors = $request->server_requirement_error;
-            if ($errors == '0' || $errors == 0) {
+            $error = $request->server_requirement_error;
+            if ($error == '0' || $error == 0) {
                 /* all requirements are matched now show license agreement */
                 return \view('installer::license-agreement', compact('error'));
             } else {
