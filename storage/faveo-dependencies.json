@@ -29,6 +29,7 @@
     "Establish connection to Helpdesk License Manager",
     "PHP Version",
     "PHP exec function",
+    "env",
     "max_execution_time",
     "allow_url_fopen",
     "cURL",

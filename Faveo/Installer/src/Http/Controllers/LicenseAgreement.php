@@ -25,7 +25,7 @@ class LicenseAgreement extends Controller
             $errors = $request->server_requirement_error;
             if ($errors == '0' || $errors == 0) {
                 /* all requirements are matched now show license agreement */
-                return \view('installer::license-agreement', compact('errors'));
+                return \view('installer::license-agreement', compact('error'));
             } else {
                 /* error found requirement not fulfill */
                 return redirect()->back()->with('error', 'Not getting all server requirement');
