@@ -15,8 +15,8 @@
         Permission Block
     </H1>
 
-    @if(\Illuminate\Support\Facades\Session::has('errors'))
-        <h1 style="color: red">{{\Illuminate\Support\Facades\Session::get('errors')}}</h1>
+    @if(\Illuminate\Support\Facades\Session::has('error'))
+        <h1 style="color: red">{{\Illuminate\Support\Facades\Session::get('error')}}</h1>
     @endif
 
     @foreach($permissionBlock as $permission)
