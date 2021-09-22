@@ -161,9 +161,9 @@ class EnvironmentManager
 
         try {
             file_put_contents($this->envPath, $envFileData);
-            if (!empty($_SERVER['APP_ENV'] ?? null) && $_SERVER['APP_ENV'] != 'testing') {
+//            if (!empty($_SERVER['APP_ENV'] ?? null) && $_SERVER['APP_ENV'] != 'testing') {
                 Artisan::call('config:cache');
-            }
+//            }
         } catch (Exception $e) {
             Log::error($e);
             $results = trans('installer_messages.environment.errors');
