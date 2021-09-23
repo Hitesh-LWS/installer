@@ -92,7 +92,7 @@ class EnvironmentManager
      * @param Request $request
      * @return string
      */
-    public function saveFileWizard($default, $host, $port, $database, $dbusername, $dbpassword, $appUrl = null, $environment = null)
+    public function saveFileWizard($default, $host, $port, $database, $dbusername, $dbpassword, $appUrl = null, $environment = null, $envParams)
     {
         $results = trans('installer_messages.environment.success');
 
@@ -108,13 +108,9 @@ class EnvironmentManager
             $port = 3306;
         }
 
-        if (empty($environment)) {
-            $environment = 'local';
-        }
-
         $envFileData =
             'APP_NAME=\'' . 'Faveo:' . md5(uniqid()) . "'\n" .
-            'APP_ENV=' . $environment . "\n" .
+            'APP_ENV=' . $envParams['environment'] . "\n" .
             'APP_KEY=' . 'base64:' . base64_encode(Str::random(32)) . "\n" .
             'APP_DEBUG=' . 'false' . "\n" .
             'APP_URL=' . $appUrl . "\n" .
@@ -157,12 +153,18 @@ class EnvironmentManager
             'SOCKET_CLIENT_SSL_ENFORCEMENT=' . 'false' . "\n" .
             'LARAVEL_WEBSOCKETS_SSL_PASSPHRASE=' . 'null' . "\n" .
             'LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT=' . 'null' . "\n" .
-            'LARAVEL_WEBSOCKETS_SSL_LOCAL_PK=' . 'null' . "\n";
+            'LARAVEL_WEBSOCKETS_SSL_LOCAL_PK=' . 'null' . "\n" . "\n" .
+            'AWS_ACCESS_KEY_ID=' . $envParams['aws_access_key_id'] . "\n" .
+            'AWS_ACCESS_KEY=' . $envParams['aws_access_key'] . "\n" .
+            'AWS_DEFAULT_REGION=' . $envParams['aws_default_region'] . "\n" .
+            'AWS_BUCKET=' . $envParams['aws_bucket'] . "\n" .
+            'AWS_ENDPOINT=' . $envParams['aws_endpoint'] . "\n" .
+            'DEFAULT_LANGUAGE=' . $envParams['language'] . "\n";
 
         try {
             file_put_contents($this->envPath, $envFileData);
 //            if (!empty($_SERVER['APP_ENV'] ?? null) && $_SERVER['APP_ENV'] != 'testing') {
-                Artisan::call('config:cache');
+            Artisan::call('config:cache');
 //            }
         } catch (Exception $e) {
             Log::error($e);

@@ -13,7 +13,7 @@ return [
     |
     */
     'app_url' => 'http://localhost/package/public',
-
+    'timezone' => 'Asia/Kolkata',
     'core' => [
         'minPhpVersion' => '7.3.1',
     ],
